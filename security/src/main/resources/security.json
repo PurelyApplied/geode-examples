@@ -1,0 +1,43 @@
+{
+  "roles": [
+    {
+      "name": "superuser",
+      "operationsAllowed": [
+        "CLUSTER",
+        "DATA"
+      ]
+    },
+    {
+      "name": "readPublic",
+      "operationsAllowed": [
+        "DATA:READ"
+      ],
+      "regions": ["public"]
+    },
+    {
+      "name": "dataEntry",
+      "operationsAllowed": [
+        "DATA:WRITE",
+        "DATA:READ"
+      ],
+      "regions": ["public", "private"]
+    }
+  ],
+  "users": [
+    {
+      "name": "admin",
+      "password": "secret",
+      "roles": ["superuser"]
+    },
+    {
+      "name": "guest",
+      "password": "guest",
+      "roles": ["readPublic"]
+    },
+    {
+      "name": "employee",
+      "password": "I work here",
+      "roles": ["dataEntry"]
+    }
+  ]
+}

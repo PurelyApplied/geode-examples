@@ -19,8 +19,8 @@ import java.io.Serializable;
 public class EmployeeKey implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private String name;
-  private int emplNumber;
+  private final String name;
+  private final int emplNumber;
 
   public String getName() {
     return name;

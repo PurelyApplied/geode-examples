@@ -12,38 +12,34 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.apache.geode.examples.partitioned;
+package org.apache.geode.examples.security;
 
-import java.io.Serializable;
+import java.util.Properties;
 
-public class EmployeeData implements Serializable {
-  private static final long serialVersionUID = 1L;
+import org.apache.geode.security.AuthenticationFailedException;
+import org.apache.geode.security.ResourcePermission;
+import org.apache.geode.security.SecurityManager;
 
-  private final EmployeeKey nameAndNumber;
-  private final int salary;
-  private final int hoursPerWeek;
+public class ExampleSecurityManager implements SecurityManager {
+  Properties securityProps;
 
-  public EmployeeData(EmployeeKey nameAndNumber, int salary, int hoursPerWeek) {
-    this.nameAndNumber = nameAndNumber;
-    this.salary = salary;
-    this.hoursPerWeek = hoursPerWeek;
-  }
-
-  public EmployeeKey getNameAndNumber() {
-    return nameAndNumber;
-  }
-
-  public int getSalary() {
-    return salary;
-  }
-
-  public int getHoursPerWeek() {
-    return hoursPerWeek;
+  @Override
+  public void init(Properties securityProps) {
+    this.securityProps = securityProps;
   }
 
   @Override
-  public String toString() {
-    return "EmployeeData [nameAndNumber=" + nameAndNumber + ", salary=" + salary + ", hoursPerWeek="
-        + hoursPerWeek + "]";
+  public Object authenticate(Properties credentials) throws AuthenticationFailedException {
+    return null;
+  }
+
+  @Override
+  public boolean authorize(Object principal, ResourcePermission permission) {
+    return false;
+  }
+
+  @Override
+  public void close() {
+
   }
 }
