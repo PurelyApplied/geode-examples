@@ -30,9 +30,11 @@ start locator --name=locator --bind-address=127.0.0.1 --security-properties-file
 start server --name=server1 --locators=127.0.0.1[10334] --classpath=../build/resources/main/ --security-properties-file=./example_security.properties --server-port=0 --user=super-user --password=123
 start server --name=server2 --locators=127.0.0.1[10334] --classpath=../build/resources/main/ --security-properties-file=./example_security.properties --server-port=0 --user=clusterManager --password=123
 
-# This command will fail, since the user does not have the correct permission
+# This next command will fail, since the user does not have the correct permission
 
-start server --name=server3 --locators=127.0.0.1[10334] --classpath=. --security-properties-file=./example_security.properties --server-port=0 --user=dataWriter --password=123
+echo "This command will fail due to invalid credentials"
+
+start server --name=server3 --locators=127.0.0.1[10334] --classpath=../build/resources/main/ --security-properties-file=./example_security.properties --server-port=0 --user=dataWriter --password=123
 
 # In a secured context, we must explicitly connect to the started locator.
 
