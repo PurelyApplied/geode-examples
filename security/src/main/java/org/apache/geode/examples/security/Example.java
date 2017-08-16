@@ -22,42 +22,35 @@ import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
 import org.apache.geode.cache.client.ClientRegionShortcut;
-import org.apache.geode.examples.partitioned.EmployeeData;
-import org.apache.geode.examples.partitioned.EmployeeKey;
 
-public class Example implements Consumer<Region<EmployeeKey, EmployeeData>> {
+public class Example implements Consumer<Region<String, String>> {
+  private static ClientCache adminCacheAccessPoint;
+  private static ClientCache workerCacheAccessPoint;
+  private static ClientCache guessCacheAccessPoint;
+
   public static void main(String[] args) {
     // connect to the locator using default port 10334
-    ClientCache cache = new ClientCacheFactory().addPoolLocator("127.0.0.1", 10334)
-        .set("log-level", "WARN").create();
+
+    adminCacheAccessPoint = new ClientCacheFactory().set("security-username", "admin")
+        .set("security-password", "invalid-password").addPoolLocator("127.0.0.1", 10334)
+        .set("log-level", "WARN").setPoolMultiuserAuthentication(true).create();
 
     // create a local region that matches the server region
-    Region<EmployeeKey, EmployeeData> region = cache
-        .<EmployeeKey, EmployeeData>createClientRegionFactory(ClientRegionShortcut.CACHING_PROXY)
-        .create("example-region");
+    Region<String, String> region =
+        adminCacheAccessPoint.<String, String>createClientRegionFactory(ClientRegionShortcut.PROXY)
+            .create("example-region");
 
     new Example().accept(region);
-    cache.close();
+    adminCacheAccessPoint.close();
   }
 
   @Override
-  public void accept(Region<EmployeeKey, EmployeeData> region) {
+  public void accept(Region<String, String> region) {
     // insert values into the region
     Random r = new Random();
-    String[] names =
-        "Alex Able,Bertie Bell,Kris Call,Dale Driver,Frankie Forth,Jamie Jive,Morgan Minnow,Pat Puts,Ricky Reliable,Taylor Tack"
-            .split(",");
-    Arrays.stream(names).forEach(name -> {
-      EmployeeKey key = new EmployeeKey(name, r.nextInt());
-      EmployeeData val = new EmployeeData(key, r.nextInt(), 40);
-      region.put(key, val);
-    });
+    String[] names = {"Alex Able", "Bertie Bell", "Chris Call", "Dale Driver", "Frankie Forth",
+        "Jamie Jive", "Morgan Minnow", "Pat Puts", "Ricky Reliable", "Taylor Tack"};
+    Arrays.stream(names).forEach(name -> region.put(name, String.valueOf(r.nextInt())));
 
-    // count the values in the region
-    int inserted = region.keySetOnServer().size();
-    System.out.println(String.format("Counted %d keys in region %s", inserted, region.getName()));
-
-    // fetch the values in the region
-    region.keySetOnServer().forEach(key -> System.out.println(region.get(key)));
   }
 }

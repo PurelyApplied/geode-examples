@@ -42,4 +42,5 @@ public class ExampleSecurityManager implements SecurityManager {
   public void close() {
 
   }
+
 }
