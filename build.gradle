@@ -133,5 +133,5 @@ subprojects {
 
 apply from: "gradle/spotless.gradle"
 apply from: "gradle/ide.gradle"
-apply from: "gradle/rat.gradle"
+//apply from: "gradle/rat.gradle"
 apply from: "gradle/release.gradle"

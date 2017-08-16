@@ -14,14 +14,6 @@
  */
 package org.apache.geode.examples.security;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.apache.geode.cache.Region;
-import org.apache.geode.examples.security.EmployeeData;
-import org.apache.geode.examples.security.EmployeeKey;
-import org.apache.geode.examples.security.Example;
-
-import org.geode.examples.util.Mocks;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
