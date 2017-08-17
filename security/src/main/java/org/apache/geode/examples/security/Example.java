@@ -14,47 +14,18 @@
  */
 package org.apache.geode.examples.security;
 
-import java.util.Arrays;
-import java.util.Random;
 import java.util.function.Consumer;
 
 import org.apache.geode.cache.Region;
-import org.apache.geode.cache.client.ClientCache;
-import org.apache.geode.cache.client.ClientCacheFactory;
-import org.apache.geode.cache.client.ClientRegionShortcut;
 
 public class Example implements Consumer<Region<String, String>> {
-  private static ClientCache adminCacheAccessPoint;
-  private static ClientCache workerCacheAccessPoint;
-  private static ClientCache guessCacheAccessPoint;
 
   public static void main(String[] args) {
-    // connect to the locator using default port 10334
-
-    adminCacheAccessPoint = new ClientCacheFactory()
-        .set("security-username", "admin")
-        .set("security-password", "invalid-password")
-        .addPoolLocator("127.0.0.1", 10334)
-        .set("log-level", "WARN")
-        .setPoolMultiuserAuthentication(true)
-        .create();
-
-    // create a local region that matches the server region
-    Region<String, String> region =
-        adminCacheAccessPoint.<String, String>createClientRegionFactory(ClientRegionShortcut.PROXY)
-            .create("example-region");
-
-    new Example().accept(region);
-    adminCacheAccessPoint.close();
+    // This example focuses on gfsh scripting
   }
 
   @Override
   public void accept(Region<String, String> region) {
-    // insert values into the region
-    Random r = new Random();
-    String[] names = {"Alex Able", "Bertie Bell", "Chris Call", "Dale Driver", "Frankie Forth",
-        "Jamie Jive", "Morgan Minnow", "Pat Puts", "Ricky Reliable", "Taylor Tack"};
-    Arrays.stream(names).forEach(name -> region.put(name, String.valueOf(r.nextInt())));
-
+    // This example focuses on gfsh scripting
   }
 }

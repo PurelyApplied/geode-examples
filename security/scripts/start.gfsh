@@ -20,28 +20,23 @@
 # This requires that the example_security.json be on the classpath.
 # Recall that the --classpath option is specified relative to the locator's working directory.
 
-start locator --name=locator --bind-address=127.0.0.1 --security-properties-file=example_security.properties --classpath=../build/resources/main/
+start locator --name=locator --bind-address=127.0.0.1\
+ --security-properties-file=example_security.properties --classpath=../build/resources/main/
 
 # Now we may start our cluster.
 # Servers also require security properties to be set and a copy of the security JSON
 # We use `--server-port=0` to use a random available port.
 # Note that we can start a server with any user with CLUSTER:MANAGE permissions
 
-start server --name=server1 --locators=127.0.0.1[10334] --classpath=../build/resources/main/ --security-properties-file=./example_security.properties --server-port=0 --user=super-user --password=123
-start server --name=server2 --locators=127.0.0.1[10334] --classpath=../build/resources/main/ --security-properties-file=./example_security.properties --server-port=0 --user=clusterManager --password=123
+start server --name=server1 --locators=127.0.0.1[10334] --classpath=../build/resources/main/\
+ --security-properties-file=./example_security.properties --server-port=0\
+ --user=super-user --password=123
+start server --name=server2 --locators=127.0.0.1[10334] --classpath=../build/resources/main/\
+ --security-properties-file=./example_security.properties --server-port=0\
+ --user=clusterManager --password=123
 
 # This next command will fail, since the user does not have the correct permission
 
 echo "This command will fail due to invalid credentials"
 
 start server --name=server3 --locators=127.0.0.1[10334] --classpath=../build/resources/main/ --security-properties-file=./example_security.properties --server-port=0 --user=dataWriter --password=123
-
-# In a secured context, we must explicitly connect to the started locator with the credentials to be used
-# for any online command
-
-connect --locator=localhost[10334] --user=super-user --password=123
-
-create region --name=example-region --type=PARTITION
-
-list members
-describe region --name=example-region
