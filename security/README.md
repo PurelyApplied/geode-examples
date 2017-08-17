@@ -22,7 +22,8 @@ through `gfsh`.
 
 In this example, we start a cluster.  Users with varying permissions attempt to
 view member and cluster information, to write data, and to query data.  These
-attempts succeed or fail based on the user's permissions.
+attempts succeed or fail based on the user's permissions.  Because we expect authentication failures,
+remember to use the `--continue-on-error` option when running each `gfsh` script.
 
 This example assumes that Java and Geode are installed.
 
