@@ -19,7 +19,7 @@ limitations under the License.
 
 This example demonstrates the basic property of partitioning.  The basic
 property of partitioning is that data entries are distributed across all
-servers that host a region.  The distribution is like database sharding, except
+servers that host a region.  The distribution is like database sharing, except
 that the distribution occurs automatically.
 
 In this example, two servers host a single partitioned region.  There is no
