@@ -62,6 +62,14 @@
         "DATA:MANAGE",
         "DATA:WRITE",
         "DATA:READ"
+      ]
+    },
+    {
+      "name": "region1data",
+      "operationsAllowed": [
+        "DATA:MANAGE",
+        "DATA:WRITE",
+        "DATA:READ"
       ],
       "regions": ["region1"]
     },
@@ -140,7 +148,7 @@
       "name": "region1admin",
       "password": "123",
       "roles": [
-        "data"
+        "region1data"
       ]
     },
     {

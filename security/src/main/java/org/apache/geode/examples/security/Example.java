@@ -31,9 +31,13 @@ public class Example implements Consumer<Region<String, String>> {
   public static void main(String[] args) {
     // connect to the locator using default port 10334
 
-    adminCacheAccessPoint = new ClientCacheFactory().set("security-username", "admin")
-        .set("security-password", "invalid-password").addPoolLocator("127.0.0.1", 10334)
-        .set("log-level", "WARN").setPoolMultiuserAuthentication(true).create();
+    adminCacheAccessPoint = new ClientCacheFactory()
+        .set("security-username", "admin")
+        .set("security-password", "invalid-password")
+        .addPoolLocator("127.0.0.1", 10334)
+        .set("log-level", "WARN")
+        .setPoolMultiuserAuthentication(true)
+        .create();
 
     // create a local region that matches the server region
     Region<String, String> region =

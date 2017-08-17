@@ -36,12 +36,12 @@ echo "This command will fail due to invalid credentials"
 
 start server --name=server3 --locators=127.0.0.1[10334] --classpath=../build/resources/main/ --security-properties-file=./example_security.properties --server-port=0 --user=dataWriter --password=123
 
-# In a secured context, we must explicitly connect to the started locator.
+# In a secured context, we must explicitly connect to the started locator with the credentials to be used
+# for any online command
 
 connect --locator=localhost[10334] --user=super-user --password=123
 
 create region --name=example-region --type=PARTITION
-
 
 list members
 describe region --name=example-region
