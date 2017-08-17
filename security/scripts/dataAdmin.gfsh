@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-connect --user=super-user --password=123
+connect --user=dataAdmin --password=123
 
 list members
 describe member --name=locator
@@ -26,8 +26,8 @@ list regions
 describe region --name=region1
 describe region --name=region2
 
-put --key="superUser-key1" --value="superUser-value1" --region=/region1
-put --key="superUser-key2" --value="superUser-value2" --region=/region2
+put --key="dataAdmin-key1" --value="dataAdmin-value1" --region=/region1
+put --key="dataAdmin-key2" --value="dataAdmin-value2" --region=/region2
 
 query --query="select * from /region1"
 query --query="select * from /region2"

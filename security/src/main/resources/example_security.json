@@ -145,7 +145,7 @@
       ]
     },
     {
-      "name": "region1admin",
+      "name": "region1dataAdmin",
       "password": "123",
       "roles": [
         "region1data"

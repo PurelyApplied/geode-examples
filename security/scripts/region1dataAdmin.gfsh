@@ -15,17 +15,19 @@
 # limitations under the License.
 #
 
-echo Of course, a super-user can anything.
-
-connect --locator=localhost[10334] --user=super-user --password=123
-
-create region --name=example-region --type=PARTITION
+connect --user=region1dataAdmin --password=123
 
 list members
 describe member --name=locator
 describe member --name=server1
+describe member --name=server2
 
-describe region --name=example-region
+list regions
+describe region --name=region1
+describe region --name=region2
 
-put --key="admin1" --value="admin-data1" --region=/example-region
-put --key="admin2" --value="admin-data2" --region=/example-region
+put --key="region1dataAdmin-key1" --value="region1dataAdmin1-value1" --region=/region1
+put --key="region1dataAdmin-key2" --value="region1dataAdmin1-value2" --region=/region2
+
+query --query="select * from /region1"
+query --query="select * from /region2"
