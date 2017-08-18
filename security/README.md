@@ -65,3 +65,5 @@ Experiment in `gfsh`, connecting with
 
 - Specify the `SecurityManager` by the `security-manager` property of all locator and server
 property files.  
+
+- Refer to the documentation for explicit detailing of permissions required for each command.

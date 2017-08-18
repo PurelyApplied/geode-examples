@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-connect --user=dataReader --password=123
+connect --user=clusterManager --password=123
 
 list members
 describe member --name=locator
@@ -24,8 +24,8 @@ list regions
 describe region --name=region1
 describe region --name=region2
 
-put --key="dataReader-key1" --value="dataReader-value1" --region=/region1
-put --key="dataReader-key2" --value="dataReader-value2" --region=/region2
+put --key="dataAdmin-key1" --value="dataAdmin-value1" --region=/region1
+put --key="dataAdmin-key2" --value="dataAdmin-value2" --region=/region2
 
 query --query="select * from /region1"
 query --query="select * from /region2"
@@ -34,4 +34,4 @@ gc
 
 change loglevel --loglevel=DEBUG --member=server1
 
-export cluster-configuration --zip-file-name=dataReader-config.zip
+export cluster-configuration --zip-file-name=clusterManager-config.zip

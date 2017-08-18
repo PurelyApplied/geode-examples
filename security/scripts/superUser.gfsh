@@ -19,8 +19,6 @@ connect --user=super-user --password=123
 
 list members
 describe member --name=locator
-describe member --name=server1
-describe member --name=server2
 
 list regions
 describe region --name=region1
@@ -31,3 +29,9 @@ put --key="superUser-key2" --value="superUser-value2" --region=/region2
 
 query --query="select * from /region1"
 query --query="select * from /region2"
+
+gc
+
+change loglevel --loglevel=DEBUG --member=server1
+
+export cluster-configuration --zip-file-name=superUser-config.zip
