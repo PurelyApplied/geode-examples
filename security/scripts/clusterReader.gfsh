@@ -24,13 +24,11 @@ list regions
 describe region --name=region1
 describe region --name=region2
 
-put --key="dataAdmin-key1" --value="dataAdmin-value1" --region=/region1
-put --key="dataAdmin-key2" --value="dataAdmin-value2" --region=/region2
+put --key="clusterReader-key1" --value="clusterReader-value1" --region=/region1
+put --key="clusterReader-key2" --value="clusterReader-value2" --region=/region2
 
 query --query="select * from /region1"
 query --query="select * from /region2"
-
-export cluster-configuration --zip-file-name=clusterReader-config.zip
 
 gc
 
