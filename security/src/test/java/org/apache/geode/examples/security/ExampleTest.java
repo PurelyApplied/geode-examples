@@ -14,12 +14,9 @@
  */
 package org.apache.geode.examples.security;
 
-import org.geode.examples.util.Mocks;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
-
-import org.apache.geode.cache.Region;
 
 public class ExampleTest {
 
@@ -28,11 +25,6 @@ public class ExampleTest {
 
   @Test
   public void testExample() throws Exception {
-
-    Region<String, String> region = Mocks.region("example-region");
-    new Example().accept(region);
-
-    // assertThat(systemOutRule.getLog()).contains("Counted 10 keys in region");
-    // assertThat(systemOutRule.getLog()).contains("Jamie Jive");
+    // no-op
   }
 }
