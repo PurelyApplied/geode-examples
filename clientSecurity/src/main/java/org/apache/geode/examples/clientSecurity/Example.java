@@ -12,7 +12,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.apache.geode.examples.security;
+package org.apache.geode.examples.clientSecurity;
 
 import static org.apache.geode.distributed.ConfigurationProperties.SECURITY_CLIENT_AUTH_INIT;
 
@@ -147,6 +147,10 @@ public class Example implements AutoCloseable {
 
   }
 
+  /**
+   * We use AutoCloseable examples to guarantee the cache closes.
+   * Failure to close the cache would cause failures when attempting to run with a new user.
+   */
   @Override
   public void close() throws Exception {
     cache.close();
