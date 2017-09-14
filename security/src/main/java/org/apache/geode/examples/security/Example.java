@@ -92,14 +92,14 @@ public class Example implements AutoCloseable {
       example.getDataExample();
     }
 
-    // region1dataAdmin is allowed to both put and get data, but only in /region1
-    try (Example example = new Example("region1dataAdmin", "123")) {
+    // dataWriter is allowed to put data but will fail the get requests.
+    try (Example example = new Example("dataWriter", "123")) {
       example.putDataExample();
       example.getDataExample();
     }
 
-    // dataAdmin is authorized to put and get data on all regions
-    try (Example example = new Example("dataAdmin", "123")) {
+    // region1dataAdmin is allowed to both put and get data, but only in /region1
+    try (Example example = new Example("region1dataAdmin", "123")) {
       example.putDataExample();
       example.getDataExample();
     }
