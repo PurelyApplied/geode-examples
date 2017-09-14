@@ -40,7 +40,7 @@
   ],
   "users": [
     {
-      "name": "super-user",
+      "name": "superUser",
       "password": "123",
       "roles": [
         "cluster",

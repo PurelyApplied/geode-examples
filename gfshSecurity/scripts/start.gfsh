@@ -31,7 +31,7 @@ start locator --name=locator --bind-address=127.0.0.1\
 start server --name=server1 --locators=127.0.0.1[10334]\
  --classpath=../build/resources/main/:../build/classes/main/\
  --security-properties-file=./example_security.properties --server-port=0\
- --user=super-user --password=123
+ --user=superUser --password=123
 
 start server --name=server2 --locators=127.0.0.1[10334]\
  --classpath=../build/resources/main/:../build/classes/main/\
@@ -41,20 +41,29 @@ start server --name=server2 --locators=127.0.0.1[10334]\
 # To execute any online commands, we need to connect to the locator
 # To create a region, we can connect as any user with CLUSTER:MANAGE
 
-connect --user=super-user --password=123
+connect --user=superUser --password=123
 create region --name=region1 --type=REPLICATE
 create region --name=region2 --type=PARTITION
-
-
+disconnect
 
 #####
-## We run our example file as various users.
+## Begin Examples
 
-run --file=scripts/clusterManager.gfsh --continue-on-error
-run --file=scripts/clusterReader.gfsh --continue-on-error
-run --file=scripts/dataAdmin.gfsh --continue-on-error
-run --file=scripts/dataReader.gfsh --continue-on-error
-run --file=scripts/region1dataAdmin.gfsh --continue-on-error
+# We run our example file as various users.
+# Each script attempts the same commands, come of which will fail due to lacking permissions.
+
+echo ">>>>> Begin example script as superUser <<<<<<"
 run --file=scripts/superUser.gfsh --continue-on-error
 
-echo "This line gives us a zero exit code, in spite of the expected above errors."
+echo ">>>>> Begin example script as dataAdmin <<<<<<"
+run --file=scripts/dataAdmin.gfsh --continue-on-error
+
+echo ">>>>> Begin example script as dataReader <<<<<<"
+run --file=scripts/dataReader.gfsh --continue-on-error
+
+echo ">>>>> Begin example script as region1dataAdmin <<<<<<"
+run --file=scripts/region1dataAdmin.gfsh --continue-on-error
+
+echo ">>>>> Begin example script as clusterReader <<<<<<"
+run --file=scripts/clusterReader.gfsh --continue-on-error
+

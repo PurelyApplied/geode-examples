@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-connect --user=super-user --password=123
+connect --user=superUser --password=123
 
 list members
 describe member --name=locator
@@ -35,3 +35,5 @@ gc
 change loglevel --loglevel=DEBUG --members=server1
 
 export cluster-configuration --zip-file-name=superUser-config.zip
+
+disconnect

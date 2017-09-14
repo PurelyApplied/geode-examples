@@ -35,3 +35,5 @@ gc
 change loglevel --loglevel=DEBUG --members=server1
 
 export cluster-configuration --zip-file-name=dataAdmin-config.zip
+
+disconnect
