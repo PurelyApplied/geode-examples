@@ -59,6 +59,8 @@ For convenience, you can run this script with the command:
 
         $ ../gradlew stop
 
+Refer to the `gfshSecurity` example to see how securing a cluster impacts `gfsh` commands.
+
 ## Things to Get Right with Security
 
 - User authentication can be handled by any class that implements `SecurityManager`.
