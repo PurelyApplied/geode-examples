@@ -148,8 +148,8 @@ public class Example implements AutoCloseable {
   }
 
   /**
-   * We use AutoCloseable examples to guarantee the cache closes.
-   * Failure to close the cache would cause failures when attempting to run with a new user.
+   * We use AutoCloseable examples to guarantee the cache closes. Failure to close the cache would
+   * cause failures when attempting to run with a new user.
    */
   @Override
   public void close() throws Exception {

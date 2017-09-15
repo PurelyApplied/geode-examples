@@ -15,74 +15,61 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Geode security example
+# Geode security example - Client
 
-This example demonstrates basic command security and user authentication
-through `gfsh`.
+This example demonstrates basic command security and user authentication in a client application
+backed by a secured Geode cluster.
 
-In this example, we start a cluster.  Users with varying permissions attempt to
-view member and cluster information, to write data, and to query data.  These
-attempts succeed or fail based on the user's permissions.  Because we expect authentication failures,
-remember to use the `--continue-on-error` option when running each `gfsh` script.
+In this example, three data users with varying permissions attempt to read and write data
+ in two regions.
+The `dataReader` user has `DATA:READ` permission, `dataWriter` has`DATA:WRITE` permission, and
+ `region1dataAdmin` has permissions `DATA:READ:region1` and `DATA:WRITE:region1`, but no permissions
+ that apply to `/region2`.
+(`region1dataAdmin` also has `DATA:MANAGE:region1` permission, but this permissions is unused
+ in this example.)
 
 This example assumes that Java and Geode are installed.
 
 ## Demonstration of Security
-1. Set directory ```geode-examples/security``` to be the current working directory.
+1. Set directory `geode-examples/clientSecurity` to be the current working directory.
 Each step in this example specifies paths relative to that directory.
 
 2. Build the example
 
         $ ../gradlew build
 
-3. Run a script that starts a locator and two servers with security enabled.
-In this example, we use the security manager `org.apache.geode.examples.security.ExampleSecurityManager`.
+3. Start a secure cluster consisting of one locator with two servers hosting two regions with
+ the script `scripts/start.gfsh`.
+In this example, we use the security manager `org.apache.geode.examples.clientSecurity.ExampleSecurityManager`.
 This security manager reads a JSON file that defines which roles are granted which permissions,
  as well as each user's username, password, and roles.
 The JSON is present in `src/main/resources/example_security.json`.
+For convenience, you can run this script with the command:
 
-        $ gfsh run --file=scripts/start.gfsh 
+        $ ../gradlew start
 
-4. The `scripts` directory contains several scripts that will attempt to execute various commands
- with the given user's permissions.
-Some of these will fail due to missing permissions.
-Run any of the user `gfsh` script files to see the effect of the security manager on the execution
- of commands through `gfsh`.
-Be sure to include `--continue-on-error` to avoid premature termination of the script when the
- expected authorization failures occur.
+4. Run the example.  Each user will attempt to put data to `/region1` and `/region2`,
+ and then read data from `/region1` and `/region2`.  Unauthorized reads and writes throw
+ exceptions caused by `NotAuthorizedException`, which we catch and print in this example.
 
-        $ gfsh run --continue-on-error --file=scripts/superUser.gfsh
-        ...
-        $ gfsh run --continue-on-error --file=scripts/clusterReader.gfsh
-        ...
-        ...
+        $ ../gradlew run
 
-5. These scripts provide only an overview of some secured commands.
-Examine the users and role permissions in `src/main/resources/example_security.json`.
-Refer to the security documentation for more information on each command's required permission.
-Experiment in `gfsh`, connecting with
+5. Stop the cluster using the script `scripts/stop.gfsh`.
+For convenience, you can run this script with the command:
 
-        $ gfsh
-        ...
-        gfsh> connect --user=[chosen user] --password=123
+        $ ../gradlew stop
 
-6. A secured cluster also impacts Java code interacting with that cluster.
-Examine `src/main/java/org/apache/geode/examples/security/Example.java`, and execute the example with
-
-      $ ../gradlew run
-
-7. When you are finished experimenting in `gfsh`, shut down the cluster
-
-        $ gfsh run --file=scripts/stop.gfsh
+For a demonstration of security's interaction with `gfsh`, refer to the `gfshSecurity` example.
 
 ## Things to Get Right with Security
 
 - User authentication can be handled by any class that implements `SecurityManager`.
 
 - Specify the `SecurityManager` by the `security-manager` property of all locator and server
-property files.  Additional properties may be required by your choice of security manager.
-
-- Refer to the documentation for explicit detailing of permissions required for each command.
+property files.  Additional properties may be required by your choice of security manager -- for instance,
+our implementation also requires `security-json` to be specified.
 
 - Any class that implements `AuthInitialize` can handle the interaction between your Java code and
  the username and password passed to your `SecurityManager`.
+
+- Refer to the documentation for explicit detailing of permissions required for each command.
